@@ -1,0 +1,22 @@
+<h1 class="h3">Search products</h1>
+<%= form_with url: search_products_path, method: :get, class: "row g-2 mb-4" do %>
+  <div class="col-md-6">
+    <%= text_field_tag :q, @q, placeholder: "Keyword in name or description", class: "form-control" %>
+  </div>
+  <div class="col-md-4">
+    <%= select_tag :category_id, options_from_collection_for_select(@categories, :id, :name, @category_id), include_blank: "All categories", class: "form-select" %>
+  </div>
+  <div class="col-md-2">
+    <%= submit_tag "Search", name: nil, class: "btn btn-primary w-100" %>
+  </div>
+<% end %>
+
+<% if @products.empty? %>
+  <p>No products matched your search.</p>
+<% else %>
+  <div class="row row-cols-1 row-cols-md-4 g-3">
+    <% @products.each do |product| %>
+      <%= render "products/product", product: product %>
+    <% end %>
+  </div>
+<% end %>

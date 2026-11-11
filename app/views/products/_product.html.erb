@@ -1,0 +1,12 @@
+<div class="col">
+  <div class="card h-100">
+    <% if product.image.attached? %>
+      <%= image_tag product.image, class: "card-img-top", alt: product.name %>
+    <% end %>
+    <div class="card-body">
+      <h5 class="card-title"><%= link_to product.name, product_path(product) %></h5>
+      <p class="card-text text-muted"><%= product.category.name %></p>
+      <p class="fw-bold mb-0"><%= number_to_currency(product.price) %></p>
+    </div>
+  </div>
+</div>

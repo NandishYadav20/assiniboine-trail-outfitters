@@ -1,0 +1,22 @@
+<h1 class="h3">Your cart</h1>
+<% if @lines.empty? %>
+  <p>Your cart is empty. <%= link_to "Keep shopping", search_products_path %>.</p>
+<% else %>
+  <table class="table align-middle">
+    <thead>
+      <tr><th>Product</th><th>Qty</th><th>Price</th><th>Line total</th></tr>
+    </thead>
+    <tbody>
+      <% @lines.each do |line| %>
+        <tr>
+          <td><%= link_to line[:product].name, product_path(line[:product]) %></td>
+          <td><%= line[:quantity] %></td>
+          <td><%= number_to_currency(line[:product].price) %></td>
+          <td><%= number_to_currency(line[:product].price * line[:quantity]) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <p class="fs-5">Subtotal before tax: <strong><%= number_to_currency(@subtotal) %></strong></p>
+  <%= link_to "Checkout", new_checkout_path, class: "btn btn-success" %>
+<% end %>

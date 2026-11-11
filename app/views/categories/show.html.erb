@@ -1,0 +1,11 @@
+<h1 class="h3"><%= @category.name %></h1>
+<p class="text-muted"><%= @category.description %></p>
+<% if @products.empty? %>
+  <p>No products in this category yet.</p>
+<% else %>
+  <div class="row row-cols-1 row-cols-md-4 g-3">
+    <% @products.each do |product| %>
+      <%= render "products/product", product: product %>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,25 @@
+<div class="p-5 mb-4 bg-white rounded-3 border">
+  <h1 class="display-5">Assiniboine Trail Outfitters</h1>
+  <p class="lead">Outdoor gear for Winnipeg adventurers, served since 1997.</p>
+  <%= link_to "Browse all products", search_products_path, class: "btn btn-primary" %>
+</div>
+
+<h2 class="h4">Shop by category</h2>
+<div class="row row-cols-2 row-cols-md-5 g-3 mb-4">
+  <% @categories.each do |category| %>
+    <div class="col">
+      <%= link_to category.name, category_path(category), class: "btn btn-outline-dark w-100" %>
+    </div>
+  <% end %>
+</div>
+
+<h2 class="h4">Latest products</h2>
+<% if @new_products.empty? %>
+  <p>No products yet.</p>
+<% else %>
+  <div class="row row-cols-1 row-cols-md-4 g-3">
+    <% @new_products.each do |product| %>
+      <%= render "products/product", product: product %>
+    <% end %>
+  </div>
+<% end %>

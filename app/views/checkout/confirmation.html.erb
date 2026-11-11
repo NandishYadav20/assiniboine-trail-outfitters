@@ -1,0 +1,29 @@
+<h1 class="h3">Thank you for your order</h1>
+<p>Order number: <strong><%= @order.order_number %></strong> &middot; Status: <%= @order.status.capitalize %></p>
+
+<h2 class="h5 mt-4">Invoice</h2>
+<table class="table">
+  <thead><tr><th>Product</th><th>Qty</th><th>Unit price</th><th>Total</th></tr></thead>
+  <tbody>
+    <% @order.order_items.each do |item| %>
+      <tr>
+        <td><%= item.product.name %></td>
+        <td><%= item.quantity %></td>
+        <td><%= number_to_currency(item.unit_price) %></td>
+        <td><%= number_to_currency(item.unit_price * item.quantity) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<table class="table w-auto ms-auto">
+  <tr><th>Subtotal</th><td><%= number_to_currency(@order.subtotal) %></td></tr>
+  <% [["GST", @order.gst_amount], ["PST", @order.pst_amount], ["HST", @order.hst_amount]].each do |name, amount| %>
+    <% if amount.to_d.positive? %>
+      <tr><th><%= name %></th><td><%= number_to_currency(amount) %></td></tr>
+    <% end %>
+  <% end %>
+  <tr><th>Total</th><td><strong><%= number_to_currency(@order.total) %></strong></td></tr>
+</table>
+
+<%= link_to "Continue shopping", root_path, class: "btn btn-primary" %>
